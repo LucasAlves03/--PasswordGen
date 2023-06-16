@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+.container {
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 10px;
+}
+
+#password-output {
+  margin-top: 10px;
+  width: 300px;
+}
+
+
+    </style>
+</head>
+<body>
+    <h1>Gerador de Senha Forte</h1>
+  <div class="container">
+    <label for="password-length">Tamanho da Senha:</label>
+    <input type="range" id="password-length" min="4" max="20" value="8">
+    <output for="password-length" id="range-value">8</output>
+    <br>
+    <label for="includeNumbers">Incluir Números:</label>
+    <input type="checkbox" id="includeNumbers" checked>
+    <label for="includeSymbols">Incluir Símbolos:</label>
+    <input type="checkbox" id="includeSymbols" checked>
+    <br>
+    <button id="generate-btn">Gerar Senha</button>
+    <input type="text" id="password-output" readonly>
+  </div>
+
+
+      <script>
+        var passwordLengthInput = document.getElementById('password-length');
+        var rangeValueOutput = document.getElementById('range-value');
+        var includeNumbersCheckbox = document.getElementById('includeNumbers');
+        var includeSymbolsCheckbox = document.getElementById('includeSymbols');
+        var generateBtn = document.getElementById('generate-btn');
+        var passwordOutput = document.getElementById('password-output');
+
+passwordLengthInput.addEventListener('input', function() {
+  var rangeValue = passwordLengthInput.value;
+  rangeValueOutput.textContent = rangeValue;
+  generatePasswordAndDisplay(rangeValue);
+});
+
+generateBtn.addEventListener('click', function() {
+  var rangeValue = passwordLengthInput.value;
+  generatePasswordAndDisplay(rangeValue);
+});
+
+function generatePasswordAndDisplay(length) {
+  var includeNumbers = includeNumbersCheckbox.checked;
+  var includeSymbols = includeSymbolsCheckbox.checked;
+  var charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if (includeNumbers) {
+    charset += '0123456789';
+  }
+  if (includeSymbols) {
+    charset += '!@#$%^&*()-_=+';
+  }
+  
+  var password = '';
+  for (var i = 0; i < length; i++) {
+    var randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset[randomIndex];
+  }
+  
+  passwordOutput.value = password;
+}
+
+
+      </script>
+</body>
+</html>
